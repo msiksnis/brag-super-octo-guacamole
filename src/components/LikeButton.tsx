@@ -92,7 +92,7 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
       onClick={() => {
         mutate();
       }}
-      className="flex items-center gap-2"
+      className="flex items-center gap-2 group"
     >
       <motion.div
         animate={data.isLikedByUser ? "liked" : "unliked"}
@@ -100,13 +100,16 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
       >
         <Heart
           className={cn(
-            "size-5 hover:text-red-500 transition-colors duration-300",
+            "size-5 group-hover:text-red-500 transition-colors duration-300",
             data.isLikedByUser && "text-red-500 fill-red-500"
           )}
         />
       </motion.div>
-      <span className="text-sm font-medium tabular-nums">
-        {data.likes} <span className="hidden sm:inline">likes</span>
+      <span className="text-sm font-medium tabular-nums peer">
+        {data.likes}{" "}
+        <span className="hidden sm:inline">
+          {data.likes === 1 ? "like" : "likes"}
+        </span>
       </span>
     </button>
   );

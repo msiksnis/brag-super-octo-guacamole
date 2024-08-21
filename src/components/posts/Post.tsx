@@ -61,14 +61,18 @@ export default function Post({ post }: PostProps) {
           )}
         </div>
         <Linkify>
-          <div className="flex-1 whitespace-pre-line break-words mt-4">
-            {post.content}
-          </div>
+          <Link href={`/posts/${post.id}`}>
+            <div className="flex-1 whitespace-pre-line break-words mt-4">
+              {post.content}
+            </div>
+          </Link>
         </Linkify>
       </div>
       <div className="md:px-4">
         {!!post.attachments.length && (
-          <MediaPreviews attachments={post.attachments} />
+          <Link href={`/posts/${post.id}`}>
+            <MediaPreviews attachments={post.attachments} />
+          </Link>
         )}
       </div>
 
