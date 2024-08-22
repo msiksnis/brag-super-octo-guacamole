@@ -83,7 +83,7 @@ export type CommentData = Prisma.CommentGetPayload<{
 
 export interface CommentsPage {
   comments: CommentData[];
-  previousCursor: string | null;
+  nextCursor: string | null;
 }
 
 export const notificationsInclude = {

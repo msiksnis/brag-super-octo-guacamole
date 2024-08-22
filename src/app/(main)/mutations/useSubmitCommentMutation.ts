@@ -15,8 +15,6 @@ export function useSubmitCommentMutation(postId: string) {
 
   const queryClient = useQueryClient();
 
-  const { user } = useSession();
-
   const mutation = useMutation({
     mutationFn: submitCommentAction,
     onSuccess: async (newComment) => {
@@ -34,8 +32,8 @@ export function useSubmitCommentMutation(postId: string) {
               pageParams: oldData.pageParams,
               pages: [
                 {
-                  previousCursor: firstPage.previousCursor,
-                  comments: [...firstPage.comments, newComment],
+                  comments: [newComment, ...firstPage.comments],
+                  nextCursor: firstPage.nextCursor,
                 },
                 ...oldData.pages.slice(1),
               ],

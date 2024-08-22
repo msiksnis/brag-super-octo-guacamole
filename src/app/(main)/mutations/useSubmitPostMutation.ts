@@ -66,6 +66,7 @@ export function useSubmitPostMutation() {
         description: "Post created",
       });
     },
+
     onError(error) {
       console.error(error);
       toast({

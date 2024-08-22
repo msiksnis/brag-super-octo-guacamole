@@ -1,6 +1,6 @@
 import { CommentsPage, PostData } from "@/lib/types";
 import CommentInput from "./CommentInput";
-import { useInfiniteQuery, useIsFetching } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import kyInstance from "@/lib/ky";
 import RenderComment from "./RenderComment";
 import { Button } from "../ui/button";
@@ -21,11 +21,7 @@ export default function Comments({ post }: CommentsProps) {
           )
           .json<CommentsPage>(),
       initialPageParam: null as string | null,
-      getNextPageParam: (firstPage) => firstPage.previousCursor,
-      select: (data) => ({
-        pages: [...data.pages].reverse(),
-        pageParams: [...data.pageParams].reverse(),
-      }),
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
     });
 
   const comments = data?.pages.flatMap((page) => page.comments) || [];
@@ -33,7 +29,7 @@ export default function Comments({ post }: CommentsProps) {
   return (
     <div className="space-y-6 pl-4 pr-2">
       <CommentInput post={post} />
-      <div className="">
+      <div className="space-y-2">
         {comments.map((comment) => (
           <RenderComment key={comment.id} comment={comment} />
         ))}
@@ -44,7 +40,7 @@ export default function Comments({ post }: CommentsProps) {
             className="mx-auto block"
             disabled={isFetching}
           >
-            {isFetching ? "Loading..." : "Load previous comments"}
+            {isFetching ? "Loading..." : "Load more"}
           </Button>
         )}
       </div>

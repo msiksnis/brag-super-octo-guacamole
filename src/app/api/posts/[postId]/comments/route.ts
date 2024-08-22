@@ -22,17 +22,18 @@ export async function GET(
       where: { postId },
       include: getCommentDataInclude(user.id),
       orderBy: {
-        createdAt: "asc",
+        createdAt: "desc",
       },
-      take: -pageSize - 1,
+      take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,
     });
 
-    const previousCursor = comments.length > pageSize ? comments[0].id : null;
+    const nextCursor =
+      comments.length > pageSize ? comments[pageSize].id : null;
 
     const data: CommentsPage = {
-      comments: comments.length > pageSize ? comments.slice(1) : comments, // This is for the previous cursor. If there are more comments than the page size, we remove the first comment. Because the first comment is the one we already have.
-      previousCursor,
+      comments: comments.slice(0, pageSize),
+      nextCursor,
     };
 
     return Response.json(data);
