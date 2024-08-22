@@ -12,7 +12,7 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import UserAvatar from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
 import "./styles.css";
-import { useSubmitPostMutation } from "./submitPostMutation";
+import { useSubmitPostMutation } from "../../../app/(main)/mutations/useSubmitPostMutation";
 import useMediaUpload, { Attachment } from "@/hooks/useMediaUpload";
 import { cn } from "@/lib/utils";
 
@@ -88,8 +88,8 @@ export default function PostEditor() {
           <EditorContent
             editor={editor}
             className={cn(
-              "w-full min-h-[42px] max-h-[20rem] overflow-y-auto bg-background rounded-lg px-4 py-2 border shadow-sm",
-              isDragActive && "border border-foreground"
+              "w-full min-h-[42px] max-h-[20rem] overflow-y-auto bg-background rounded-md px-4 py-2 shadow-sm border",
+              isDragActive && "border-foreground"
             )}
             onPaste={onPaste}
           />

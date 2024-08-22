@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -16,12 +17,16 @@ import { Media } from "@prisma/client";
 import { Separator } from "../ui/separator";
 import LikeButton from "../LikeButton";
 import BookmarkButton from "../BookmarkButton";
+import { MessageCircle } from "lucide-react";
+import Comments from "../comments/Comments";
 
 interface PostProps {
   post: PostData;
 }
 
 export default function Post({ post }: PostProps) {
+  const [showComments, setShowComments] = useState(false);
+
   const { user } = useSession();
 
   return (
@@ -79,13 +84,21 @@ export default function Post({ post }: PostProps) {
       <div className="px-4 pt-2 space-y-4">
         <Separator />
         <div className="flex items-center justify-between gap-4">
-          <LikeButton
-            postId={post.id}
-            initialState={{
-              likes: post._count.likes,
-              isLikedByUser: post.likes.some((like) => like.userId === user.id),
-            }}
-          />
+          <div className="flex items-center gap-4">
+            <LikeButton
+              postId={post.id}
+              initialState={{
+                likes: post._count.likes,
+                isLikedByUser: post.likes.some(
+                  (like) => like.userId === user.id
+                ),
+              }}
+            />
+            <ShowComments
+              post={post}
+              onClick={() => setShowComments(!showComments)}
+            />
+          </div>
           <BookmarkButton
             postId={post.id}
             initialState={{
@@ -96,6 +109,7 @@ export default function Post({ post }: PostProps) {
           />
         </div>
       </div>
+      {showComments && <Comments post={post} />}
     </article>
   );
 }
@@ -153,4 +167,23 @@ function MediaPreview({ media }: MediaPreviewProps) {
   }
 
   return <p className="text-destructive text-sm">Media unavailable</p>;
+}
+
+interface ShowCommentsProps {
+  post: PostData;
+  onClick: () => void;
+}
+
+function ShowComments({ post, onClick }: ShowCommentsProps) {
+  return (
+    <button onClick={onClick} className="flex items-center gap-1.5 sm:gap-2">
+      <MessageCircle className="size-[1.125rem]" />
+      <span className="text-sm tabular-nums -mb-1 text-muted-foreground">
+        {post._count.comments}{" "}
+        <span className="hidden sm:inline">
+          {post._count.comments === 1 ? "comment" : "comments"}
+        </span>
+      </span>
+    </button>
+  );
 }

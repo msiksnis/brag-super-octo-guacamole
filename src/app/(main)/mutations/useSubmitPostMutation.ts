@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 
 import { useToast } from "@/components/ui/use-toast";
-import { submitPostAction } from "../../../app/(main)/actions/submitPostAction";
+import { submitPostAction } from "../actions/submitPostAction";
 import { PostsPage } from "@/lib/types";
 import { useSession } from "@/app/(main)/SessionProvider";
 

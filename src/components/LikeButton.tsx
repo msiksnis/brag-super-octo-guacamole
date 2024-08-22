@@ -92,7 +92,7 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
       onClick={() => {
         mutate();
       }}
-      className="flex items-center gap-2 group"
+      className="flex items-center gap-1.5 sm:gap-2 group"
     >
       <motion.div
         animate={data.isLikedByUser ? "liked" : "unliked"}
@@ -105,7 +105,7 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
           )}
         />
       </motion.div>
-      <span className="text-sm font-medium tabular-nums peer">
+      <span className="text-sm tabular-nums -mb-1 text-muted-foreground">
         {data.likes}{" "}
         <span className="hidden sm:inline">
           {data.likes === 1 ? "like" : "likes"}

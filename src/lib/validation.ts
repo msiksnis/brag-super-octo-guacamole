@@ -33,11 +33,6 @@ export const loginSchema = z.object({
 
 export type LoginValues = z.infer<typeof loginSchema>;
 
-// export const createPostSchema = z.object({
-//   content: z.string().trim().min(1, "Required"),
-//   mediaIds: z.array(z.string()).max(8, "Cannot have more than 8 attachments"),
-// });
-
 export const createPostSchema = z
   .object({
     content: z.string().trim().optional(),

@@ -11,7 +11,7 @@ import {
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { LoaderCircle } from "lucide-react";
-import { useDeletePostMutation } from "../posts/deletePostMutation";
+import { useDeletePostMutation } from "../../app/(main)/mutations/useDeletePostMutation";
 
 interface AlertModalProps {
   post: PostData;

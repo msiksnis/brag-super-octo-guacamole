@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 
-import { useToast } from "../ui/use-toast";
+import { useToast } from "../../../components/ui/use-toast";
 import { deletePost } from "@/app/(main)/actions/deletePostAction";
 import { PostsPage } from "@/lib/types";
 
