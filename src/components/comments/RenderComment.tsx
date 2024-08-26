@@ -1,16 +1,28 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { Trash2 } from "lucide-react";
+
 import { CommentData } from "@/lib/types";
 import UserTooltip from "../UserTooltip";
-import Link from "next/link";
 import UserAvatar from "../UserAvatar";
 import { formatRelativeDate } from "@/lib/utils";
+import { useSession } from "@/app/(main)/SessionProvider";
+import DeleteCommentModal from "../modals/DeleteCommentModal";
+import { Button } from "../ui/button";
 
 interface RenderCommentProps {
   comment: CommentData;
 }
 
 export default function RenderComment({ comment }: RenderCommentProps) {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const { user } = useSession();
+
   return (
-    <span className="flex gap-x-2 sm:ml-2">
+    <span className="flex gap-x-2 sm:ml-2 group/comment">
       <span className="hidden sm:inline">
         <UserTooltip user={comment.user}>
           <Link href={`/users/${comment.user.username}`}>
@@ -33,6 +45,21 @@ export default function RenderComment({ comment }: RenderCommentProps) {
           {formatRelativeDate(comment.createdAt)}
         </span>
       </div>
+      {comment.user.id === user.id && (
+        <Button
+          onClick={() => setShowDeleteModal(true)}
+          size="icon"
+          variant="ghost"
+          className="ms-auto opacity-0 transition-opacity group-hover/comment:opacity-100 group-hover/comment:bg-muted rounded-2xl"
+        >
+          <Trash2 className="size-4 text-red-500" />
+        </Button>
+      )}
+      <DeleteCommentModal
+        comment={comment}
+        open={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+      />
     </span>
   );
 }

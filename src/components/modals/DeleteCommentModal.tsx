@@ -2,7 +2,6 @@
 
 import { LoaderCircle } from "lucide-react";
 
-import { PostData } from "@/lib/types";
 import {
   Dialog,
   DialogContent,
@@ -12,16 +11,21 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { useDeletePostMutation } from "../../app/(main)/mutations/useDeletePostMutation";
+import { CommentData } from "@/lib/types";
+import { useDeleteCommentMutation } from "@/app/(main)/mutations/useDeleteCommentMutation";
 
-interface AlertModalProps {
-  post: PostData;
+interface DeleteCommentModalProps {
+  comment: CommentData;
   open: boolean;
   onClose: () => void;
 }
 
-export default function AlertModal({ post, open, onClose }: AlertModalProps) {
-  const mutation = useDeletePostMutation();
+export default function DeleteCommentModal({
+  comment,
+  open,
+  onClose,
+}: DeleteCommentModalProps) {
+  const mutation = useDeleteCommentMutation();
 
   function handleOpenChange(open: boolean) {
     if (!open || !mutation.isPending) {
@@ -34,7 +38,7 @@ export default function AlertModal({ post, open, onClose }: AlertModalProps) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="font-medium">
-            Are you sure you want to delete this post?
+            Are you sure you want to delete this comment?
           </DialogTitle>
           <DialogDescription>This action cannot be undone.</DialogDescription>
         </DialogHeader>
@@ -50,7 +54,9 @@ export default function AlertModal({ post, open, onClose }: AlertModalProps) {
               Cancel
             </Button>
             <Button
-              onClick={() => mutation.mutate(post.id, { onSuccess: onClose })}
+              onClick={() =>
+                mutation.mutate(comment.id, { onSuccess: onClose })
+              }
               size="sm"
               className="w-1/2 bg-red-500 hover:bg-red-400"
             >

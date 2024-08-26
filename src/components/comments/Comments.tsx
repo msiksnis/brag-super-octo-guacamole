@@ -4,6 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import kyInstance from "@/lib/ky";
 import RenderComment from "./RenderComment";
 import { Button } from "../ui/button";
+import Loader from "../loader";
 
 interface CommentsProps {
   post: PostData;
@@ -42,6 +43,17 @@ export default function Comments({ post }: CommentsProps) {
           >
             {isFetching ? "Loading..." : "Load more"}
           </Button>
+        )}
+        {status === "pending" && <Loader />}
+        {status === "success" && !comments.length && (
+          <p className="text-muted-foreground text-center text-sm">
+            No comments yet.
+          </p>
+        )}
+        {status === "error" && (
+          <p className="text-destructive text-center text-sm">
+            Failed to load comments. Please try again.
+          </p>
         )}
       </div>
     </div>
