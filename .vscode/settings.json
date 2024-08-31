@@ -18,6 +18,15 @@
     "titleBar.inactiveBackground": "#e6fa9f99",
     "titleBar.inactiveForeground": "#15202b99"
   },
+  "colorize.languages": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "scss",
+    "css",
+    "json"
+  ],
   "peacock.color": "#e6fa9f",
   "cSpell.words": ["lackin"]
 }

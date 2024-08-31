@@ -50,7 +50,7 @@ export default function UserButton({ className }: UserButtonProps) {
           <UserAvatar
             avatarUrl={user.avatarUrl}
             size={50}
-            className="size-8 md:size-12 border border-muted-foreground"
+            className="size-8 md:size-12 border border-muted-foreground hover:-rotate-10 transition-all duration-300 ease-in-out"
           />
         </button>
       </DropdownMenuTrigger>

@@ -1,46 +1,51 @@
-"use client";
-
 import Link from "next/link";
+import { Bookmark, Home, Mail, MessageCircleMore } from "lucide-react";
+
 import { Button } from "./ui/button";
-import { Bell, Bookmark, Home, Mail } from "lucide-react";
+import NotificationsButton from "./NotificationsButton";
+import { validateRequest } from "@/auth";
+import prisma from "@/lib/prisma";
 
 interface MenuBarProps {
   className?: string;
 }
 
-export default function MenuBar({ className }: MenuBarProps) {
+export default async function MenuBar({ className }: MenuBarProps) {
+  const { user } = await validateRequest();
+
+  if (!user) return null;
+
+  const unreadNotificationCount = await prisma.notification.count({
+    where: {
+      recipientId: user.id,
+      read: false,
+    },
+  });
+
   return (
     <div className={className}>
       <Button
         variant="ghost"
         title="Home"
         asChild
-        className="flex justify-start items-center gap-3"
+        className="flex items-center justify-start gap-3"
       >
         <Link href="/">
           <Home className="size-6" />
           <span className="hidden md:inline">Home</span>
         </Link>
       </Button>
-      <Button
-        variant="ghost"
-        title="Notifications"
-        asChild
-        className="flex justify-start items-center gap-3"
-      >
-        <Link href="/notifications">
-          <Bell className="size-6" />
-          <span className="hidden md:inline">Notifications</span>
-        </Link>
-      </Button>
+      <NotificationsButton
+        initialState={{ unreadCount: unreadNotificationCount }}
+      />
       <Button
         variant="ghost"
         title="Messages"
         asChild
-        className="flex justify-start items-center gap-3"
+        className="flex items-center justify-start gap-3"
       >
         <Link href="/messages">
-          <Mail className="size-6" />
+          <MessageCircleMore className="size-6" strokeWidth={1.9} />
           <span className="hidden md:inline">Messages</span>
         </Link>
       </Button>
@@ -48,7 +53,7 @@ export default function MenuBar({ className }: MenuBarProps) {
         variant="ghost"
         title="Bookmarks"
         asChild
-        className="flex justify-start items-center gap-3"
+        className="flex items-center justify-start gap-3"
       >
         <Link href="/bookmarks">
           <Bookmark className="size-6" />

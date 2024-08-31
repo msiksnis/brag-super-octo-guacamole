@@ -73,16 +73,14 @@ export async function POST(
         },
         update: {},
       }),
-      // prisma.notification.create({
-      //   data: {
-      //     issuerId: loggedInUser.id,
-      //     recipientId: userId,
-      //     type: "FOLLOW",
-      //   },
-      // }),
+      prisma.notification.create({
+        data: {
+          issuerId: loggedInUser.id,
+          recipientId: userId,
+          type: "FOLLOW",
+        },
+      }),
     ]);
-
-    console.log("Followed user", userId);
 
     return new Response();
   } catch (error) {
@@ -109,13 +107,13 @@ export async function DELETE(
           followingId: userId,
         },
       }),
-      // prisma.notification.deleteMany({
-      //   where: {
-      //     issuerId: loggedInUser.id,
-      //     recipientId: userId,
-      //     type: "FOLLOW",
-      //   },
-      // }),
+      prisma.notification.deleteMany({
+        where: {
+          issuerId: loggedInUser.id,
+          recipientId: userId,
+          type: "FOLLOW",
+        },
+      }),
     ]);
 
     return new Response();
