@@ -50,7 +50,7 @@ export default function UserButton({ className }: UserButtonProps) {
           <UserAvatar
             avatarUrl={user.avatarUrl}
             size={50}
-            className="size-8 md:size-12 border border-muted-foreground hover:-rotate-10 transition-all duration-300 ease-in-out"
+            className="size-8 border border-muted-foreground transition-all duration-300 ease-in-out hover:-rotate-10 md:size-12"
           />
         </button>
       </DropdownMenuTrigger>
@@ -59,43 +59,43 @@ export default function UserButton({ className }: UserButtonProps) {
         <DropdownMenuSeparator />
         <Link href={`/users/${user.username}`}>
           <DropdownMenuItem className="cursor-pointer">
-            <UserIcon className="size-4 mr-2" />
+            <UserIcon className="mr-2 size-4" />
             Profile
           </DropdownMenuItem>
         </Link>
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
-            <Monitor className="size-4 mr-2" />
+            <Monitor className="mr-2 size-4" />
             Theme
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent>
               <DropdownMenuItem onClick={() => setTheme("system")}>
-                <ComputerIcon className="size-4 mr-2" />
-                <div className="flex justify-between items-center w-full">
+                <ComputerIcon className="mr-2 size-4" />
+                <div className="flex w-full items-center justify-between">
                   System default
                 </div>
                 <div className="">
-                  {theme === "system" && <CheckIcon className="size-4 ml-2" />}
+                  {theme === "system" && <CheckIcon className="ml-2 size-4" />}
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setTheme("light")}>
-                <SunIcon className="size-4 mr-2" />
-                <div className="flex justify-between items-center w-full">
+                <SunIcon className="mr-2 size-4" />
+                <div className="flex w-full items-center justify-between">
                   Light
                 </div>
                 <div>
-                  {theme === "light" && <CheckIcon className="size-4 ml-2" />}
+                  {theme === "light" && <CheckIcon className="ml-2 size-4" />}
                 </div>
               </DropdownMenuItem>
 
               <DropdownMenuItem onClick={() => setTheme("dark")}>
-                <Moon className="size-4 mr-2" />
-                <div className="flex justify-between items-center w-full">
+                <Moon className="mr-2 size-4" />
+                <div className="flex w-full items-center justify-between">
                   Dark
                 </div>
                 <div className="">
-                  {theme === "dark" && <CheckIcon className="size-4 ml-2" />}
+                  {theme === "dark" && <CheckIcon className="ml-2 size-4" />}
                 </div>
               </DropdownMenuItem>
             </DropdownMenuSubContent>
@@ -109,7 +109,7 @@ export default function UserButton({ className }: UserButtonProps) {
             logout();
           }}
         >
-          <LogOutIcon className="size-4 mr-2" />
+          <LogOutIcon className="mr-2 size-4" />
           Log out
         </DropdownMenuItem>
       </DropdownMenuContent>

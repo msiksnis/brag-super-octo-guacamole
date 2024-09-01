@@ -44,7 +44,7 @@ export default function LoginForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col mt-6 md:mt-10 space-y-0 md:max-w-[30rem] mx-auto w-full"
+        className="mx-auto flex w-full flex-col md:max-w-[30rem]"
       >
         <div className="h-[5.5rem]">
           <FormField
@@ -62,7 +62,7 @@ export default function LoginForm() {
                     })}
                   />
                 </FormControl>
-                <FormMessage className="text-right !mt-1 text-xs font-normal" />
+                <FormMessage className="!mt-1 text-right text-xs font-normal" />
               </FormItem>
             )}
           />
@@ -84,22 +84,22 @@ export default function LoginForm() {
                     })}
                   />
                 </FormControl>
-                <FormMessage className="text-right !mt-1 text-xs font-normal" />
+                <FormMessage className="!mt-1 text-right text-xs font-normal" />
               </FormItem>
             )}
           />
         </div>
 
-        <div className="pt-10 relative">
+        <div className="relative pt-10">
           {error && (
-            <div className="absolute left-0 top-3 text-center text-destructive text-sm">
+            <div className="absolute left-0 top-3 text-center text-sm text-destructive">
               {error}
             </div>
           )}
           <LoadingButton
             loading={isPending}
             type="submit"
-            className="flex w-full justify-center rounded-md px-3 py-2 text-foreground text-sm font-semibold shadow transition duration-300 bg-accent"
+            className="flex w-full justify-center overflow-hidden rounded-md bg-accent px-3 py-2 text-sm font-semibold text-foreground shadow transition duration-300"
           >
             {isPending ? "Logging in..." : "Log in"}
           </LoadingButton>
