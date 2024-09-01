@@ -40,7 +40,7 @@ export async function generateMetadata({
   const post = await getPost(postId, user.id);
 
   return {
-    title: `${post.user.displayName}: ${post.content.slice(0, 50)}...`,
+    title: `${post.user.displayName}: ${post.content?.slice(0, 50)}...`,
   };
 }
 
@@ -110,7 +110,7 @@ async function UserInfoSidebar({ user }: UserInfoSidebarProps) {
           initialState={{
             followers: user._count.followers,
             isFollowedByUser: user.followers.some(
-              ({ followerId }) => followerId === loggedInUser.id
+              ({ followerId }) => followerId === loggedInUser.id,
             ),
           }}
         />
