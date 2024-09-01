@@ -63,11 +63,11 @@ export default async function UserPage({
   const user = await getUser(username, loggedInUser.id);
 
   return (
-    <main className="flex w-full pt-8 min-w-0 gap-4">
+    <main className="flex w-full min-w-0 gap-4 pt-8">
       <div className="w-full min-w-0 space-y-4">
         <UserProfile user={user} loggedInUserId={loggedInUser.id} />
         <div className="rounded-full border border-muted-foreground px-4 py-2 shadow-sm">
-          <h1 className="text-center text-xl md:text-xl font-semibold">
+          <h1 className="text-center text-xl font-semibold md:text-xl">
             {user.displayName}&apos;s posts
           </h1>
         </div>
@@ -87,7 +87,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
   const followerInfo: FollowerInfo = {
     followers: user._count.followers,
     isFollowedByUser: user.followers.some(
-      ({ followerId }) => followerId === loggedInUserId
+      ({ followerId }) => followerId === loggedInUserId,
     ),
   };
 
@@ -95,20 +95,20 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
     <div className="h-fit w-full rounded-2xl pb-6 md:pb-10">
       <div className="relative aspect-[3/1.5]">
         <Image
-          src={user.bannerUrl || banner}
+          src={banner}
           alt={`${user.displayName}'s banner`}
           priority
           fill
-          className="object-cover rounded-2xl"
+          className="rounded-2xl object-cover"
         />
-        <div className="absolute -bottom-12 md:-bottom-20 left-0 pl-6 md:pl-8 flex items-center gap-4 md:gap-6 w-full">
+        <div className="absolute -bottom-12 left-0 flex w-full items-center gap-4 pl-6 md:-bottom-20 md:gap-6 md:pl-8">
           <UserAvatar
             avatarUrl={user.avatarUrl}
             size={200}
-            className="ring-0 ring-offset-4 max-h-20 max-w-20 md:max-h-36 md:max-w-36 rounded-full hover:-rotate-6 transition-transform duration-500"
+            className="max-h-20 max-w-20 rounded-full ring-0 ring-offset-4 transition-transform duration-500 hover:-rotate-6 md:max-h-36 md:max-w-36"
           />
-          <div className="flex w-full gap-2 items-center justify-between mt-14 md:mt-20 overflow-hidden">
-            <div className="flex-1 font-semibold text-2xl truncate">
+          <div className="mt-14 flex w-full items-center justify-between gap-2 overflow-hidden md:mt-20">
+            <div className="flex-1 truncate text-2xl font-semibold">
               {user.displayName}
             </div>
             <div className="flex justify-end">
@@ -121,12 +121,12 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
           </div>
         </div>
       </div>
-      <div className="flex justify-center gap-10 mt-24 md:mt-32">
+      <div className="mt-24 flex justify-center gap-10 md:mt-32">
         <FollowerCount userId={user.id} initialState={followerInfo} />
         {/* Todo: create FollowingCount component */}
-        <span className="border border-muted-foreground rounded-full px-4 pt-1 md:pt-1.5 pb-0.5 md:pb-1">
-          <span className="text-sm md:text-base font-bold">0</span>
-          <span className="text-sm md:text-base font-semibold"> Following</span>
+        <span className="rounded-full border border-muted-foreground px-4 pb-0.5 pt-1 md:pb-1 md:pt-1.5">
+          <span className="text-sm font-bold md:text-base">0</span>
+          <span className="text-sm font-semibold md:text-base"> Following</span>
         </span>
       </div>
     </div>
