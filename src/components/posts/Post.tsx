@@ -32,27 +32,27 @@ export default function Post({ post }: PostProps) {
   return (
     <article className="space-y-3 rounded-2xl bg-card py-4 shadow-sm">
       <div className="px-4">
-        <div className="flex items-center w-full gap-4">
+        <div className="flex w-full items-center gap-4">
           <UserTooltip user={post.user}>
             <Link
-              href={`/user/${post.user.username}`}
-              className="hover:-rotate-10 transition-transform duration-300"
+              href={`/users/${post.user.username}`}
+              className="transition-transform duration-300 hover:-rotate-10"
             >
               <UserAvatar avatarUrl={post.user.avatarUrl} size={50} />
             </Link>
           </UserTooltip>
-          <div className="flex flex-col w-full">
+          <div className="flex w-full flex-col">
             <UserTooltip user={post.user}>
               <Link
                 href={`/users/${post.user.username}`}
-                className="font-semibold text-lg hover:underline underline-offset-2"
+                className="text-lg font-semibold underline-offset-2 hover:underline"
               >
                 {post.user.displayName || post.user.username}
               </Link>
             </UserTooltip>
             <Link
               href={`/posts/${post.id}`}
-              className="text-xs text-muted-foreground -mt-1"
+              className="-mt-1 text-xs text-muted-foreground"
               suppressHydrationWarning
             >
               {formatRelativeDate(post.createdAt)}
@@ -67,7 +67,7 @@ export default function Post({ post }: PostProps) {
         </div>
         <Linkify>
           <Link href={`/posts/${post.id}`}>
-            <div className="flex-1 whitespace-pre-line break-words mt-4">
+            <div className="mt-4 flex-1 whitespace-pre-line break-words">
               {post.content}
             </div>
           </Link>
@@ -81,7 +81,7 @@ export default function Post({ post }: PostProps) {
         )}
       </div>
 
-      <div className="px-4 pt-2 space-y-4">
+      <div className="space-y-4 px-4 pt-2">
         <Separator />
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
@@ -90,7 +90,7 @@ export default function Post({ post }: PostProps) {
               initialState={{
                 likes: post._count.likes,
                 isLikedByUser: post.likes.some(
-                  (like) => like.userId === user.id
+                  (like) => like.userId === user.id,
                 ),
               }}
             />
@@ -103,7 +103,7 @@ export default function Post({ post }: PostProps) {
             postId={post.id}
             initialState={{
               isBookmarkedByUser: post.bookmarks.some(
-                (bookmark) => bookmark.userId === user.id
+                (bookmark) => bookmark.userId === user.id,
               ),
             }}
           />
@@ -127,7 +127,7 @@ function MediaPreviews({ attachments }: MediaPreviewsProps) {
       className={cn(
         "flex flex-col gap-4",
         attachments.length > 1 && "md:grid md:grid-cols-2",
-        isPostsPath && "md:grid-cols-1"
+        isPostsPath && "md:grid-cols-1",
       )}
     >
       {attachments.map((media) => (
@@ -166,7 +166,7 @@ function MediaPreview({ media }: MediaPreviewProps) {
     );
   }
 
-  return <p className="text-destructive text-sm">Media unavailable</p>;
+  return <p className="text-sm text-destructive">Media unavailable</p>;
 }
 
 interface ShowCommentsProps {
@@ -178,7 +178,7 @@ function ShowComments({ post, onClick }: ShowCommentsProps) {
   return (
     <button onClick={onClick} className="flex items-center gap-1.5 sm:gap-2">
       <MessageCircle className="size-[1.125rem]" />
-      <span className="text-sm tabular-nums -mb-1 text-muted-foreground">
+      <span className="-mb-1 text-sm tabular-nums text-muted-foreground">
         {post._count.comments}{" "}
         <span className="hidden sm:inline">
           {post._count.comments === 1 ? "comment" : "comments"}
